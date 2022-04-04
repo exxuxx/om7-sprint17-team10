@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Book page</h1>
+    <div><span>
+        <h3>Information about Book</h3>
+        <a class="btn btn-dark" href="{% url 'authentication:index' %}">Go Home</a>
+        <a class="btn btn-dark" href="{% url 'book:all_books' %}">Back to books</a>
+
+    </span></div>
+    <h1>
+        ID: {{ book.id }} <br> 
+        Title: {{ book.name }} <br>
+        Description: {{ book.description }} <br> 
+        Authors:
+        {% for author in book.authors.all %} 
+            {{author.name}} 
+        {% endfor %}
+        <br>
+        Count: {{ book.count }} <br>
+    </h1>
+{% endblock content %}

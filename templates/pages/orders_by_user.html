@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Here You can see all Orders page =)</h1>
+<a class="btn btn-success" href="{% url 'order:orders' %}"><----Back to orders</a>
+    <a class="btn btn-dark" href="{% url 'authentication:index' %}">Go Home</a>
+    {% if orders %}
+    <h2>I found (<span style="color: #198754;">{{orders.count}}</span>) orders from this user</h2>
+    <div><span><table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">User</th>
+            <th scope="col">Book</th>
+            <th scope="col">Date of creation</th>
+            <th scope="col">Date of plated</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr class="authors_info">
+                <th scope="row">{{order.id}}</th>
+                <td>{{order.user.first_name}} {{order.user.last_name}}</td>
+                <td>{{order.book.name}} ({{order.book.description}})</td>
+                <td>{{order.created_at}}</td>
+                <td>{{order.plated_end_at}}</td>
+                <td><a href="{% url 'order:del_order' order.id %}"><i class="fa-solid fa-file-circle-minus"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+        {% else %}
+        <h3>No Orders Yet =(</h3>
+        {% endif %}
+    </span></div>
+{% endblock content %}

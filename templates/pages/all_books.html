@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+    <div><span>
+        <h1>Books in Library </h1>
+    <a class="btn btn-dark" href="{% url 'authentication:index' %}">Go Home</a>
+    <a class='btn btn-dark' href="{% url 'book:find_book' %}">Find specific book</a>
+    </span></div>
+
+    <br>
+
+    <h3>Sort books by</h3>
+    <form action="{% url 'book:all_books' %}", method="post", name="sort_books">
+        {% csrf_token %}
+        {{ form2 }}
+        <input type="submit" value="Sort!">
+    </form>
+    <br>
+    <h3>Find Book by ID</h3>
+    <form action="{% url 'book:all_books' %}", method="post", name="search_by_id">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Find book with this ID">
+    </form>
+    
+    <br>
+    
+    <table align="center", width="800px">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description (date of pub)</th>
+            <th>Authors</th>
+            <th>Count</th>
+        </tr>
+    {% for book in books %}
+        <tr>
+            <td> <a href='{{ book.id }}'>{{ book.id }}</a> </td>
+            <td> {{book.name}} </td>
+            <td> {{book.description}} </td>
+            <td> 
+                {% for author in book.authors.all %} 
+                    {{author.name}} 
+                {% endfor %}
+            </td>
+            <td>
+            {{ book.count }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    <br>
+{% endblock content %}

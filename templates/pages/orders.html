@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Here You can see all Orders page =)</h1>
+    <a class="btn btn-dark" href="{% url 'authentication:index' %}">Go Home</a>
+    <a class="btn btn-success" href="{% url 'order:add_order' %}">Add random Positive order</a>
+    <a class="btn btn-danger" href="{% url 'order:add_neg_order' %}">Add random Negative order</a>
+    <a class="btn btn-success" href="{% url 'order:un_ordered' %}">Show unordered Books</a>
+    {% if orders %}
+    <div><span><table class="table">
+        <thead>
+          <tr>
+            <th scope="col"><a href="{% url 'order:sorted_order' 'id' %}">id</a></th>
+            <th scope="col"><a href="{% url 'order:sorted_order' 'user' %}">User</a></th>
+            <th scope="col"><a href="{% url 'order:sorted_order' 'book' %}">Book</a></th>
+            <th scope="col"><a href="{% url 'order:sorted_order' 'created_at' %}">Date of creation</a></th>
+            <th scope="col"><a href="{% url 'order:sorted_order' 'plated_end_at' %}">Date of plated</a></th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr class="authors_info">
+                <th scope="row">{{order.id}}</th>
+                <td><a href="{% url 'order:orders_by_user_id' order.user.id %}">{{order.user.first_name}} {{order.user.last_name}}</a></td>
+                <td>{{order.book.name}} ({{order.book.description}})</td>
+                <td>{{order.created_at}}</td>
+                <td>{{order.plated_end_at}}</td>
+                <td><a href="{% url 'order:del_order' order.id %}"><i class="fa-solid fa-file-circle-minus"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+        {% else %}
+        <h3>No Orders Yet =(</h3>
+        {% endif %}
+    </span></div>
+{% endblock content %}

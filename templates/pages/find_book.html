@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Here You can Find some Book</h1>
+    <div><span>
+    <a class="btn btn-dark" href="{% url 'authentication:index' %}">Go Home</a>
+    <a class="btn btn-dark" href="{% url 'book:all_books' %}">Back to list of books</a>
+    </span></div>
+        
+    <h3>Find Book by some information</h3>
+    <form action="{% url 'book:find_book' %}", method="post", name="search_by_data">
+        {% csrf_token %}
+        {{ form3 }}
+        <input type="submit" value="Find book with this Data!">
+    </form>
+    <br>
+
+    <h3>Find Books by author ID</h3>
+    <form action="{% url 'book:find_book' %}", method="post", name="search_by_author">
+        {% csrf_token %}
+        {{ form_author_id }}
+        <input type="submit" value="Find books of this Author!">
+    </form>
+    <br>
+
+
+{% if show_author %}    
+    {% if author_id_error %}
+    <h2> There is no author with such ID in our Library: {{ author_by_id_error }} </h2>
+    {% else %}
+    <h1> {{ author_by_id.name }}, ID: {{ author_by_id.id }} </h1>
+    <table align="center", width="800px">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description (date of pub)</th>
+            <th>Authors</th>
+            <th>Count</th>
+        </tr>
+    {% for book in books_by_author %}
+        <tr>
+            <td> <a href='{{ book.id }}'>{{ book.id }}</a> </td>
+            <td> {{book.name}} </td>
+            <td> {{book.description}} </td>
+            <td> 
+                {% for author in book.authors.all %} 
+                    {{author.name}} 
+                {% endfor %}
+            </td>
+            <td>
+            {{ book.count }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+{% endif %}
+
+<br>
+
+{% if book_name_search %}
+<h3>Possible match for book's name</h3>
+<table align="center", width="800px">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description (date of pub)</th>
+            <th>Authors</th>
+            <th>Count</th>
+        </tr>
+    {% for book in book_name_search %}
+        <tr>
+            <td> <a href='{{ book.id }}'>{{ book.id }}</a> </td>
+            <td> {{book.name}} </td>
+            <td> {{book.description}} </td>
+            <td> 
+                {% for author in book.authors.all %} 
+                    {{author.name}} 
+                {% endfor %}
+            </td>
+            <td>
+            {{ book.count }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+{% if book_author_search %}
+<h3>Possible match for book's author</h3>
+<table align="center", width="800px">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description (date of pub)</th>
+            <th>Authors</th>
+            <th>Count</th>
+        </tr>
+    {% for book in book_author_search %}
+        <tr>
+            <td> <a href='{{ book.id }}'>{{ book.id }}</a> </td>
+            <td> {{book.name}} </td>
+            <td> {{book.description}} </td>
+            <td> 
+                {% for author in book.authors.all %} 
+                    {{author.name}} 
+                {% endfor %}
+            </td>
+            <td>
+            {{ book.count }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+{% if description_search %}
+<h3>Possible match for book's description</h3>
+<table align="center", width="800px">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description (date of pub)</th>
+            <th>Authors</th>
+            <th>Count</th>
+        </tr>
+    {% for book in description_search %}
+        <tr>
+            <td> <a href='{{ book.id }}'>{{ book.id }}</a> </td>
+            <td> {{book.name}} </td>
+            <td> {{book.description}} </td>
+            <td> 
+                {% for author in book.authors.all %} 
+                    {{author.name}} 
+                {% endfor %}
+            </td>
+            <td>
+            {{ book.count }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+<br>
+
+
+<!--
+    {% if no_data_provided_error %}
+    <h2> There is no data. Please enter some information to search. </h2>
+    {% else %}
+    
+
+    {% endif %}
+
+
+
+
+
+    <ul>
+    {% for book in book_name_search %}
+    <li> <a href='{{ book.id }}'>{{ book.id }}</a>, {{book.name}}, {{book.description}}, 
+        {% for author in book.authors.all %} 
+        {{author.name}} 
+        {% endfor %},
+        {{ book.count }}
+    </li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for book in book_author_search %}
+    <li> <a href='{{ book.id }}'>{{ book.id }}</a>, {{book.name}}, {{book.description}}, 
+        {% for author in book.authors.all %} 
+        {{author.name}} 
+        {% endfor %},
+        {{ book.count }}
+    </li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for author in author_search %}
+    <li> 
+        {{ author.name }}
+    </li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for book in description_search %}
+    <li> <a href='{{ book.id }}'>{{ book.id }}</a>, {{book.name}}, {{book.description}}, 
+        {% for author in book.authors.all %} 
+        {{author.name}} 
+        {% endfor %},
+        {{ book.count }}
+        {{ book_author_search }}
+        <br>
+    </li>
+    {% endfor %}
+</ul>
+-->
+
+{% endblock content %}

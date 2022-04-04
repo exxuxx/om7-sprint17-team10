@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Un Ordered Books</h1> 
+<div class="my_book">
+    {% if books %}
+    {% for book in books %}
+   
+    <div class="card" style="width: 18rem;">
+        <img src="../../static/img/no-photo-big.svg" class="card-img-top" alt="{{book.id}}">
+        <div class="card-body">
+        <h5 class="card-title">{{book.name}}</h5>
+        <p class="card-text">{{book.description}}</p>
+        <a href="{% url 'book:book_by_id' book.id %}" class="btn btn-primary">See info of this book</a>
+        </div>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock content %}

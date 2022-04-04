@@ -1,0 +1,55 @@
+body{
+    text-align: center;
+}
+.path{
+    width: 250px;
+    height: 100px;
+    margin: 5px;
+    padding: 5px;
+    background-color: darkblue;
+    text-decoration: none;
+    font-size: 25px;
+    color:white
+}
+.add{
+    background-color: rgb(130, 201, 7);
+}
+.del{
+    background-color: rgb(201, 0, 0);
+}
+.authors_info{
+    text-transform: capitalize;
+}
+.authors_info i{
+    color: red;
+    transition: transform 500ms;
+}
+.authors_info i:hover{
+    transform: scale(2);
+}
+#navbarNavDropdown{
+    justify-content: space-evenly;
+}
+.index{
+    background-image: url('../img/new-york-public-library.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+}
+.top{
+    position: relative;
+    width: 100%;
+}
+.bottom{
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    bottom: 0px;
+}
+.my_book{
+    display: flex;
+    flex-flow: row wrap;
+}
+.card{
+    margin: 5px;
+}

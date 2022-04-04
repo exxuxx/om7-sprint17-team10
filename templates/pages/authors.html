@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Here You can see our Author page =)</h1>
+    <a class="btn btn-dark" href="{% url 'authentication:index' %}">Go Home</a>
+    <a class="btn btn-success" href="{% url 'authors:add_authors' %}">add random author</a>
+    <a class="btn btn-danger" href="{% url 'authors:del_authors' %}">delete all authors</a>
+    {% if authors %}
+    <div><span><table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Patronymic</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+            <tr class="authors_info">
+                <th scope="row">{{author.id}}</th>
+                <td>{{author.name}}</td>
+                <td>{{author.surname}}</td>
+                <td>{{author.patronymic}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+        {% else %}
+        <h3>No Authors Yet =(</h3>
+        {% endif %}
+    </span></div>
+{% endblock content %}
