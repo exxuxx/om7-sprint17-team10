@@ -23,4 +23,3 @@ urlpatterns = [
     path('book/', include('book.urls')),
     path('order/', include('order.urls')),
 ]
-
