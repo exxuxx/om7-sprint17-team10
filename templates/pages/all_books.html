@@ -51,4 +51,12 @@
     {% endfor %}
     </table>
     <br>
+    
+    <h3>Add Book to Library</h3>
+    <form action="{% url 'book:all_books' %}", method="post", name="add_new_book">
+        {% csrf_token %}
+        {{ add_new_book.as_p }}
+        <input type="submit" value="Add new book!">
+    </form>
+
 {% endblock content %}
