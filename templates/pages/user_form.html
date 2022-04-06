@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Here You can see our Users page =)</h1>
+<a class="btn btn-success" href="{% url 'authentication:add_user' %}">Add new User</a>
+<a class="btn btn-danger" href="{% url 'authentication:delete_users' %}">Delete all users</a>
+<a class="btn btn-warning" href="{% url 'authentication:debtors' %}">Show debtors</a>
+
+    <h3>Add or Update User</h3>
+    <form action="", method="post", name="add_update_user">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update User!">
+    </form>
+
+{% endblock content %}

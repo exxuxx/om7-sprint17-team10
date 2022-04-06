@@ -3,6 +3,40 @@ from .models import *
 from order.models import *
 import string
 import random
+from django import forms
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = {'first_name', 'last_name', 'middle_name', 'email'}
+        lables = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'middle_name': 'Middle Name',
+            'email': 'email' 
+        }
+
+def user_form(request, id = 0):
+    if request.method == "GET":
+        if id == 0:
+            form = UserForm()
+        else: 
+            user = CustomUser.get_by_id(id)
+            form = UserForm(instance=user)
+        return render(request, "pages/user_form.html", context = {
+            "form": form,
+            "id": id
+        })
+    else:
+        if id == 0:
+            form = UserForm(request.POST)
+        else:
+            user = CustomUser.get_by_id(id)
+            form = UserForm(request.POST, instance=user)
+    if form.is_valid():
+        form.save()
+    return redirect('authentication:users')
+
 
 def users(request):
     context = {
