@@ -36,3 +36,19 @@ def delete_authors(request):
     all_authors = Author.objects.all()
     all_authors.delete()
     return redirect('authors:authors')
+
+
+def edit_author(request, author_id):
+    if request.method == "GET":
+        if id == 0:
+            form = EditAuthor()
+        else:
+            author = Author.get_by_id(author_id)
+            form = EditAuthor(instance=author)
+        return render(request, "pages/edit_author.html", context={"form": form, "id": author_id})
+    else:
+        author = Author.get_by_id(author_id)
+        form = EditAuthor(request.POST, instance=author)
+    if form.is_valid():
+        form.save()
+    return redirect("authors:authors")

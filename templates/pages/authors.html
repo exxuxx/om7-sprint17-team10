@@ -14,6 +14,7 @@
             <th scope="col">Name</th>
             <th scope="col">Surname</th>
             <th scope="col">Patronymic</th>
+            <th scope="col">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                 <td>{{author.name}}</td>
                 <td>{{author.surname}}</td>
                 <td>{{author.patronymic}}</td>
+                <td><a href="{% url 'edit_authors' author.pk %}">Edit</a></td>
             </tr>
             {% endfor %}
         </tbody>
