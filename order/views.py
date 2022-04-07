@@ -3,8 +3,19 @@ from .models import *
 from authentication.models import *
 from book.models import *
 import datetime
+from django import forms
 # Create your views here.
 
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = {'user', 'book', 'end_at', 'plated_end_at'}
+        lables = {
+            'user': 'User',
+            'book': 'Book',
+            'end_at': 'End date',
+            'plated_end_at': 'Plated End Date' 
+        }
 
 def orders_list(request,ord_by='created_at'):
     all_orders = Order.objects.all().order_by(ord_by)
@@ -56,3 +67,33 @@ def un_ord(request):
         "books":all_out
     }
     return render(request,'pages/un_ordered_books.html',context)
+
+def show_order(request, order_id=0):
+    # form = OrderForm()
+    # order = Order.get_by_id(order_id)
+    # context = {
+    #     "order": order,
+    #     "form": form
+    # }
+    # return render(request, "pages/order_form.html", context)
+
+    if request.method == "GET":
+        if order_id == 0:
+            form = OrderForm()
+        else: 
+            order = Order.get_by_id(order_id)
+            form = OrderForm(instance=order)
+        return render(request, "pages/order_form.html", context = {
+            "form": form,
+            "id": id
+        })
+    else:
+        if order_id == 0:
+            form = OrderForm(request.POST)
+        else:
+            order = Order.get_by_id(order_id)
+            form = OrderForm(request.POST, instance=order)
+    if form.is_valid():
+        form.save()
+    return redirect('order:orders')
+    

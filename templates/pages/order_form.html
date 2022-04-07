@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1>Here You configurate Orders</h1>
+<!--
+<a class="btn btn-success" href="{% url 'authentication:add_user' %}">Add new User</a>
+<a class="btn btn-danger" href="{% url 'authentication:delete_users' %}">Delete all users</a>
+<a class="btn btn-warning" href="{% url 'authentication:debtors' %}">Show debtors</a>
+-->
+    <h3>Add or Update Order</h3>
+    <form action="", method="post", name="add_update_order">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Configurate Order!">
+    </form>
+
+{% endblock content %}

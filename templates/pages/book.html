@@ -20,4 +20,13 @@
         <br>
         Count: {{ book.count }} <br>
     </h1>
+    
+    <br>
+
+    <form action = "{% url 'book:book_by_id' book.id %}", method="post", name="update_book">
+        {% csrf_token %}
+            {{ form_update.as_p }}
+        <input type="submit" value="Update!">
+    </form>
+
 {% endblock content %}

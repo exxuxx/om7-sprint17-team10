@@ -21,7 +21,7 @@
             <tbody>
                 {% for user in users %}
               <tr class='authors_info'>
-                <th scope="row">{{user.id}}</th>
+                <th scope="row"><a href="{{user.id}}">{{user.id}}</a></th>
                 <td>{{user.first_name}}</td>
                 <td>{{user.middle_name}}</td>
                 <td>{{user.last_name}}</td>
@@ -35,5 +35,7 @@
         <h3>No Users Yet =(</h3>
         {% endif %}
     </span></div>
+
+<a class="btn btn-success" href="/0">Add User Manualy</a>
 
 {% endblock content %}
