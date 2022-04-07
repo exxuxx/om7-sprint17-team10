@@ -12,4 +12,5 @@ urlpatterns = [
     path('add_neg', views.add_neg_order, name='add_neg_order'),
     path('un_ord', views.un_ord, name='un_ordered'),
     path('del-<int:id>', views.del_order, name='del_order'),
+    path('change/<int:order_id>', views.show_order, name='show_order')
 ]
