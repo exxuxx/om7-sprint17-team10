@@ -1,9 +1,51 @@
 from django.shortcuts import redirect, render
+from requests import request
+from authentication import serializers
+
+from authentication.serializers import AuthorSerializer, OrderOfUserSerializer, OrderSerializer, UserSerializer
+from book.serializers import BookSerializer
 from .models import *
 from order.models import *
 import string
 import random
 from django import forms
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, viewsets
+from book.models import Book
+from order.models import Order
+from author.models import Author
+from rest_framework.decorators import action
+from rest_framework.response import Response
+import logging
+
+
+class UserView(viewsets.ModelViewSet):
+    queryset = CustomUser.get_all()
+    serializer_class = UserSerializer
+
+class BookView(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer 
+
+class OrderView(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+class AuthorView(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+class OrderOfUserView(viewsets.ModelViewSet):    
+    queryset = Order.objects.all()
+    serializer_class = OrderOfUserSerializer
+
+    def get_queryset(self):
+        queryset = Order.objects.all()
+        user_id = self.kwargs['user_id']
+        user = CustomUser.objects.get(id = user_id)
+        if user is not None:
+            queryset = queryset.filter(user = user)
+        return queryset
 
 class UserForm(forms.ModelForm):
     class Meta:

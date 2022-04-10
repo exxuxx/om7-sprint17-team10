@@ -2,9 +2,10 @@
 
 {% block content %}
 <h3>Edit Author</h3>
-<form action="{% url 'edit' %}" , method="post" , name="edit_author">
+<form action="{% url 'authors:edit_author' id %}" , method="post" , name="edit_author">
     {% csrf_token %}
     {{ form }}
     <button type="submit" value="Save">Save</button>
 </form>
+
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block content %}
 <h3>Add Author</h3>
-<form action="{% url 'add' %}" , method="post" , name="add_author">
+<form action="{% url 'authors:add_author' %}" , method="post" , name="add_author">
     {% csrf_token %}
     {{ form }}
     <button type="submit" value="Add">Add</button>
