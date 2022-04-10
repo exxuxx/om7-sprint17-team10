@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'author',
     'book',
     'order',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

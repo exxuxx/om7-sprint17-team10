@@ -4,6 +4,14 @@ from author import models as author_models
 import csv
 from django import forms
 from random import randint
+from rest_framework import viewsets
+from .models import Book
+from .serializers import BookSerializer
+from book import serializers
+
+class BookView(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
 class BookIdForm(forms.Form):
     book_id = forms.IntegerField()
